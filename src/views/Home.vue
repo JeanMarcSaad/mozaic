@@ -1,18 +1,28 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <h3>Mozaic Generator <span class="badge badge-pill badge-light" style="vertical-align: top">1.0</span></h3> -->
+    <div>
+      <br>
+      <h2 style="display: inline-block">Mozaic Generator</h2>
+      <span class="badge badge-pill badge-light" style="vertical-align: top">1.0</span>
+    </div>
+    <br>
+    <Mozaic />
+    <!-- <footer>by <u>Jean-Marc Saad</u></footer> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Mozaic from '@/components/Mozaic.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Mozaic
   }
 }
 </script>
+
+<style lang="scss">
+</style>
