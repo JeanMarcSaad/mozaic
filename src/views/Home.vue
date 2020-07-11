@@ -3,8 +3,9 @@
     <!-- <h3>Mozaic Generator <span class="badge badge-pill badge-light" style="vertical-align: top">1.0</span></h3> -->
     <div>
       <br>
-      <h2 style="display: inline-block">Mozaic Generator</h2>
-      <span class="badge badge-pill badge-light" style="vertical-align: top">1.0</span>
+      <h2 style="display: inline-block">Mozaic Generator‎‎‏‏‎ ‎</h2>
+      <!-- <span class="badge badge-pill badge-light" style="vertical-align: top">by Jean-Marc Saad</span> -->
+      <span class="badge badge-pill badge-dark" style="vertical-align: top">1.0</span>
     </div>
     <br>
     <Mozaic />

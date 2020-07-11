@@ -1,5 +1,4 @@
 let p5;
-// let x = 0, y = 0;
 let radius = 0;
 let speed = 5;
 let drawPercentage = 20;
@@ -15,26 +14,24 @@ export function main(p5_) {
 
 
   p5.setup = () => {
-    // p5.createCanvas(1000, 1000);
-    // p5.createCanvas(950, 633);
     p5.createCanvas(mozaicWidth, mozaicHeight);
     p5.background(0);
+    p5.frameRate(24);
     drawCircles(true);
   }
 
   p5.draw = () => {
-    // console.log(circleArray)
     radius = mozaicWidth / circleRow;
     updateCircles();
   }
-
-  // p5.mousePressed = () => {
-  //   drawCircles();
-  // }
 }
 
-export function saveCanvas() {
+export function saveCanvasAsPng() {
   p5.saveCanvas('mozaic', 'png');
+}
+
+export function saveCanvasAsGif() {
+  p5.createLoop({duration:3, gif:true})
 }
 
 export function setCircleRow(val) {
@@ -47,6 +44,7 @@ export function setDrawPercentage(val) {
 
 export function setSpeed(val) {
   speed = val;
+  drawCircles(false);
 }
 
 export function setRedFactor(val) {
@@ -62,11 +60,9 @@ export function setGreenFactor(val) {
 }
 
 export function drawCircles(randomize) {
-  // p5.background(244,34,66)
   if(!stack)
     p5.background(0, 255);
   if(randomize) {
-    // drawPercentage = p5.random(0, 100);
     redColorFactor = p5.random(40,255);
     blueColorFactor = p5.random(40,255);
     greenColorFactor = p5.random(40,255);
@@ -76,7 +72,6 @@ export function drawCircles(randomize) {
   for(var i =0; i < mozaicHeight + radius; i += radius){
     for(var j = 0; j < mozaicWidth + radius; j+= radius){
       var rand = p5.random(0, 100);
-      // if (rand > drawPercentage && y <= mozaicHeight) {
       if (rand > drawPercentage) {
         circleArray.push(new Circle(j, i, radius, speed));
       }
@@ -115,6 +110,7 @@ class Circle {
   }
 
   updateSpeed(s) {
+    this.speed = 0;
     this.speed = s;
     if(parseInt(this.colorFactor) % 2 != 0){
       this.speed *= -1;

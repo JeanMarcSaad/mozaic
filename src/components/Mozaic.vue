@@ -17,13 +17,19 @@
             </div>
           </div>
         </div>
-        <br><br>
+        <br>
         <div class="row">
+          <div class="col-12">
+            <button class="btn shadow-none mozaic-button" @click="randomizeParameters">Randomize</button>
+          </div>
+        </div>
+        <br>
+        <div class="row align-items-center">
           <div class="col-6">
-            <button class="btn shadow-none mozaic-button" @click="saveCanvas">Save</button>
+            <button class="btn shadow-none mozaic-button" @click="saveCanvasAsPng">PNG</button>
           </div>
           <div class="col-6">
-            <button class="btn shadow-none mozaic-button" @click="randomizeParameters">Randomize</button>
+            <button class="btn shadow-none mozaic-button" @click="saveCanvasAsGif">Gif</button>
           </div>
         </div>
         <br>
@@ -57,9 +63,9 @@ export default {
         },
         speed: {
           name: "Speed",
-          min: 2,
-          max: 4,
-          curr: 3
+          min: 1,
+          max: 7,
+          curr: 4
         },
         red_factor: {
           name: "Red",
@@ -110,10 +116,9 @@ export default {
   },
   methods: {
     refreshMozaicColors() {
-      // mozaic.drawCircles(true)
-      this.value_ranges.red_factor.curr = this.getRandomInteger(30, 255);
-      this.value_ranges.blue_factor.curr = this.getRandomInteger(30, 255);
-      this.value_ranges.green_factor.curr = this.getRandomInteger(30, 255);
+      this.value_ranges.red_factor.curr = this.getRandomInteger(40, 255);
+      this.value_ranges.blue_factor.curr = this.getRandomInteger(40, 255);
+      this.value_ranges.green_factor.curr = this.getRandomInteger(40, 255);
     },
     randomizeParameters() {
       for(var param in this.value_ranges) {
@@ -123,9 +128,12 @@ export default {
     getRandomInteger(min, max) {
       return Math.floor(Math.random() * (max - min + 1) ) + min;
     },
-    saveCanvas() {
-      mozaic.saveCanvas()
-    }
+    saveCanvasAsPng() {
+      mozaic.saveCanvasAsPng()
+    },
+    saveCanvasAsGif() {
+      mozaic.saveCanvasAsGif()
+    },
   }
 }
 </script>
@@ -136,23 +144,13 @@ div {
   user-select: none;
 }
 
-// #formControlRange {
-//   -webkit-appearance: none;
-//   appearance: none;
-//   border-radius: 40px;
-//   height: 8px;
-//   width: 100%;
-//   background-color: ;
-//   // background-color: darkgrey;
-//   outline: none;
-// }
-
 .mozaic-button {
   background-color: rgba(150,34,66, 0.6);
   outline: none;
+  overflow: visible;
   border-style: none;
+  width: 6em;
   text-align: center;
-  width: 7em;
   color: whitesmoke;
 }
 
@@ -171,7 +169,6 @@ div {
 
 .form-control-range {
   background: linear-gradient(to right, rgba(150,34,66, 0.6) 0%, rgb(100,34,66, 0.9) 100%);
-  // border: solid 1px #82CFD0;
   border-radius: 8px;
   height: 7px;
   width: 356px;
@@ -186,27 +183,15 @@ div {
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  // background: rgb(244,34,66);
-  // background: darkgrey;
   background: linear-gradient(to right, darkgrey 0%, whitesmoke 100%);
   cursor: pointer;
 }
-
-// #formControlRange::-webkit-slider-runnable-track {
-//   height: 10px;
-//   -webkit-appearance: none;
-//   color: #13bba4;
-// }
-
-
 
 #mozaic-settings {
   background: rgba(255, 255, 255, 0.075);
 }
 
 #canvas-div {
-  // display: inline-block;
-  // align-self: center;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
@@ -214,10 +199,6 @@ div {
 
   width: 100%;
   max-height: 40em;
-
-
-  // width: 950px;
-  // height: 633px;
 
   border-style: solid;
   border-width: 3px;
