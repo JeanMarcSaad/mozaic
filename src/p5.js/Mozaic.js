@@ -26,12 +26,13 @@ export function main(p5_) {
   }
 }
 
-export function saveCanvasAsPng() {
-  p5.saveCanvas('mozaic', 'png');
-}
-
-export function saveCanvasAsGif() {
-  p5.createLoop({duration:3, gif:true})
+export async function saveCanvasAsPng() {
+  return new Promise((resolve) => {
+    setTimeout(function() {
+      p5.saveCanvas('mozaic', 'png');
+      resolve()
+    }, 500);
+  })
 }
 
 export function setCircleRow(val) {

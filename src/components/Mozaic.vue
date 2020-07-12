@@ -1,10 +1,11 @@
 <template>
-  <div class="container">
-    <div class="row">
+  <div class="container container-table">
+    <div class="row vertical-center-row">
       <div class="col-md-3" id="mozaic-settings">
         <div class="row">
           <div class="col-12">
-            <div v-for="(range, key) in value_ranges" :key="key" class="input-group mb-2">
+            <div v-for="(range, key) in value_ranges" :key="key" class="input-group input-group-sm mb-3">
+              <div class="mozaic-divider" v-if="range.divide"></div>
               <label for="formControlRange">{{ range.name }} : {{ range.curr }}</label>
               <input
                 type="range"
@@ -18,21 +19,24 @@
           </div>
         </div>
         <br>
-        <div class="row">
-          <div class="col-12">
+
+        <div v-if="!saving" class="row align-items-center">
+          <div class="col-6 col-lg-6 col-md-12">
+            <b-dropdown class="btn shadow-none mozaic-dropdown" text="Save">
+              <b-dropdown-item href="#" @click="saveCanvasAsPng">png</b-dropdown-item>
+              <b-dropdown-item href="#" @click="saveCanvasAsGif">gif
+                <span class="badge badge-pill badge-primary" style="vertical-align: top">beta</span></b-dropdown-item>
+            </b-dropdown>
+          </div>
+          <div class="col-6 col-lg-6 col-md-12">
             <button class="btn shadow-none mozaic-button" @click="randomizeParameters">Randomize</button>
           </div>
         </div>
-        <br>
-        <div class="row align-items-center">
-          <div class="col-6">
-            <button class="btn shadow-none mozaic-button" @click="saveCanvasAsPng">PNG</button>
-          </div>
-          <div class="col-6">
-            <button class="btn shadow-none mozaic-button" @click="saveCanvasAsGif">Gif</button>
+        <div v-else class="row align-items-center">
+          <div class="col-12">
+            <b-spinner variant="light" label="Spinning"></b-spinner>
           </div>
         </div>
-        <br>
       </div>
       <div class="col-md-9">
         <div id="canvas-div" @click="refreshMozaicColors" oncontextmenu="return false;">
@@ -43,20 +47,23 @@
 </template>
 
 <script>
-const P5 = require('p5');
-const mozaic = require('@/p5.js/Mozaic.js')
+const P5 = require('p5/lib/p5.min');
+const mozaic = require('@/p5.js/Mozaic.js');
+const gifApi = require('@/plugins/gif.api.js');
+
 export default {
   data: function() {
     return {
+      saving: false,
       value_ranges: {
         circles_per_row: {
-          name: "Circles Per Row",
-          min: 70,
-          max: 90,
-          curr: 80
+          name: "Size",
+          min: 50,
+          max: 100,
+          curr: 75
         },
         draw_percentage: {
-          name: "Draw Percentage",
+          name: "Percentage",
           min: 1,
           max: 100,
           curr: 50
@@ -71,7 +78,8 @@ export default {
           name: "Red",
           min: 0,
           max: 255,
-          curr: 125
+          curr: 125,
+          divide: true
         },
         blue_factor: {
           name: "Blue",
@@ -90,12 +98,12 @@ export default {
   },
   watch: {
     'value_ranges.circles_per_row.curr': function(val) {
-      mozaic.setCircleRow(val); 
-      mozaic.drawCircles(false)
+      mozaic.setCircleRow(150-val); 
+      mozaic.drawCircles(false);
     },
     'value_ranges.draw_percentage.curr': function(val) {
       mozaic.setDrawPercentage(100-val); 
-      mozaic.drawCircles(false)
+      mozaic.drawCircles(false);
     },
     'value_ranges.speed.curr': function(val) {
       mozaic.setSpeed(val);
@@ -129,84 +137,21 @@ export default {
       return Math.floor(Math.random() * (max - min + 1) ) + min;
     },
     saveCanvasAsPng() {
+      this.saving = true;
       mozaic.saveCanvasAsPng()
+      .then(() =>  { this.saving=false; })
     },
     saveCanvasAsGif() {
-      mozaic.saveCanvasAsGif()
-    },
+      this.saving = true
+      gifApi.renderGif({canvas: document.getElementsByClassName('p5Canvas')[0]})
+      .then(() =>  { this.saving=false; })
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 div {
   user-select: none;
-}
-
-.mozaic-button {
-  background-color: rgba(150,34,66, 0.6);
-  outline: none;
-  overflow: visible;
-  border-style: none;
-  width: 6em;
-  text-align: center;
-  color: whitesmoke;
-}
-
-.mozaic-button:active {
-  background-color: rgba(150,34,66, 0.4);
-  outline: none;
-  border-style: none;
-  border-width: 0;
-}
-
-.mozaic-button:focus {
-  outline: none;
-  border-style: none;
-  border-width: 0;
-}
-
-.form-control-range {
-  background: linear-gradient(to right, rgba(150,34,66, 0.6) 0%, rgb(100,34,66, 0.9) 100%);
-  border-radius: 8px;
-  height: 7px;
-  width: 356px;
-  outline: none;
-  transition: background 450ms ease-in;
-  -webkit-appearance: none;
-}
-
-.form-control-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  border-radius: 50px;
-  background: linear-gradient(to right, darkgrey 0%, whitesmoke 100%);
-  cursor: pointer;
-}
-
-#mozaic-settings {
-  background: rgba(255, 255, 255, 0.075);
-}
-
-#canvas-div {
-  overflow: hidden;
-  cursor: pointer;
-  user-select: none;
-
-
-  width: 100%;
-  max-height: 40em;
-
-  border-style: solid;
-  border-width: 3px;
-  border-color: grey;
-}
-
-#canvas-ui {
-  display: inline-block;
-  align-self: right;
 }
 </style>

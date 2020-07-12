@@ -10,6 +10,7 @@
   "dependencies": {
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.6.5",
+    "gif.js": "^0.2.0",
     "p5": "^1.0.0",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
