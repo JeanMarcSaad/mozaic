@@ -1,7 +1,6 @@
 const GIF = require('gif.js');
 
 const frame_rate = 24;
-// const frame_rate = 24;
 
 async function renderGifAsync(canvas, frames) {
     return new Promise((resolve) => {
@@ -14,7 +13,8 @@ async function renderGifAsync(canvas, frames) {
         let gif = new GIF({
             workers: 4,
             workerScript: URL.createObjectURL(workerBlob),
-            quality: 2
+            width: canvas.width,
+            height: canvas.height
         });
 
         gif.on('finished', function(blob) {
@@ -22,39 +22,24 @@ async function renderGifAsync(canvas, frames) {
             resolve()
         });
 
-        // console.log(frames)
-
-        // gif.addFrame(canvas, {delay: 50});
-        // gif.addFrame(canvas, {delay: 50});
-        // gif.addFrame(canvas, {delay: 50});
-        // gif.addFrame(canvas, {delay: 50});
-        // gif.addFrame(canvas, {delay: 50});
-        // gif.addFrame(canvas, {delay: 50});
-        // gif.addFrame(canvas, {delay: 50});
+        // gif.on('progress', function(p) {
+        //     console.log(Math.floor(p*100));
+        // });
 
         let i = 0;
+        let ctx = canvas.getContext('2d');
 
         let renderFrames = function() {
-            gif.addFrame(canvas, {delay: 50});
+            gif.addFrame(ctx, {copy: true, delay: 50});
             if(i < frames) {
                 i++;
-                console.log(i);
-                setTimeout(renderFrames, 50);
+                setTimeout(renderFrames, 0);
             } else {
                 gif.render();
             }
         }
 
-
         renderFrames(i);
-
-        // while(i < frames) {
-        //     console.log(i)
-        //     gif.addFrame(canvas, {delay: 50});
-        //     i++;
-        // }
-
-        // gif.render();
     });
 }
 

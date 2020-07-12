@@ -19,7 +19,6 @@
           </div>
         </div>
         <br>
-
         <div v-if="!saving" class="row align-items-center">
           <div class="col-6 col-lg-6 col-md-12">
             <b-dropdown class="btn shadow-none mozaic-dropdown" text="Save">
@@ -98,11 +97,11 @@ export default {
   },
   watch: {
     'value_ranges.circles_per_row.curr': function(val) {
-      mozaic.setCircleRow(150-val); 
+      mozaic.setCircleRow(150-val);
       mozaic.drawCircles(false);
     },
     'value_ranges.draw_percentage.curr': function(val) {
-      mozaic.setDrawPercentage(100-val); 
+      mozaic.setDrawPercentage(100-val);
       mozaic.drawCircles(false);
     },
     'value_ranges.speed.curr': function(val) {
@@ -142,8 +141,9 @@ export default {
       .then(() =>  { this.saving=false; })
     },
     saveCanvasAsGif() {
-      this.saving = true
-      gifApi.renderGif({canvas: document.getElementsByClassName('p5Canvas')[0]})
+      this.saving = true;
+      let canvas = document.getElementsByClassName('p5Canvas')[0];
+      gifApi.renderGif({canvas: canvas})
       .then(() =>  { this.saving=false; })
     }
   }
