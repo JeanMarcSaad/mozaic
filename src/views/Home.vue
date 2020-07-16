@@ -2,7 +2,7 @@
   <div class="home">
     <header class="mozaic-title">
       <h2 style="display: inline-block">Mozaic Generator‎‎‏‏‎ ‎</h2>
-      <span class="badge badge-pill badge-dark" style="vertical-align: top">0.1.0</span>
+      <span class="badge badge-pill badge-dark" style="vertical-align: top">1.0.0</span>
     </header>
     <Mozaic />
   </div>
