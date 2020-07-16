@@ -1,6 +1,17 @@
 const GIF = require('gif.js');
 
-const frame_rate = 24;
+const frame_rate = 12*3;
+
+function saveBlob(blob, fileName) {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+    let url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url);
+}
 
 async function renderGifAsync(canvas, frames) {
     return new Promise((resolve) => {
@@ -13,25 +24,26 @@ async function renderGifAsync(canvas, frames) {
         let gif = new GIF({
             workers: 4,
             workerScript: URL.createObjectURL(workerBlob),
-            width: canvas.width,
-            height: canvas.height
+            width: canvas.width/1.5,
+            height: canvas.height/1.5
         });
 
         gif.on('finished', function(blob) {
-            window.open(URL.createObjectURL(blob));
+            saveBlob(blob, 'mozaic_anim.gif');
+            URL.revokeObjectURL(workerBlob);
             resolve()
         });
 
-        // gif.on('progress', function(p) {
-        //     console.log(Math.floor(p*100));
-        // });
+        gif.on('progress', function(p) {
+            console.log(`${Math.floor(p*100)}%`);
+        });
 
         let i = 0;
         let ctx = canvas.getContext('2d');
 
         let renderFrames = function() {
-            gif.addFrame(ctx, {copy: true, delay: 50});
             if(i < frames) {
+                gif.addFrame(ctx, {copy: true, delay: 50});
                 i++;
                 setTimeout(renderFrames, 0);
             } else {

@@ -23,8 +23,7 @@
           <div class="col-6 col-lg-6 col-md-12">
             <b-dropdown class="btn shadow-none mozaic-dropdown" text="Save">
               <b-dropdown-item href="#" @click="saveCanvasAsPng">png</b-dropdown-item>
-              <b-dropdown-item href="#" @click="saveCanvasAsGif">gif
-                <span class="badge badge-pill badge-primary" style="vertical-align: top">beta</span></b-dropdown-item>
+              <b-dropdown-item href="#" @click="saveCanvasAsGif">gif</b-dropdown-item>
             </b-dropdown>
           </div>
           <div class="col-6 col-lg-6 col-md-12">
