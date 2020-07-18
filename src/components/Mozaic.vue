@@ -10,7 +10,7 @@
               class="input-group input-group-sm mb-3"
             >
               <div class="mozaic-divider" v-if="range.divide" />
-              <label for="formControlRange">{{ range.name }} : {{ range.curr }}</label>
+              <label for="formControlRange">{{ range.name }}<span v-if="range.showCurr"> : {{ range.curr }}</span></label>
               <input
                 type="range"
                 class="form-control-range"
@@ -61,38 +61,44 @@ export default {
           name: "Size",
           min: 50,
           max: 100,
-          curr: 75
+          curr: 75,
+          showCurr: false
         },
         draw_percentage: {
           name: "Percentage",
           min: 1,
           max: 100,
-          curr: 50
+          curr: 50,
+          showCurr: false
         },
         speed: {
           name: "Speed",
           min: 1,
           max: 7,
-          curr: 4
+          curr: 4,
+          showCurr: false
         },
         red_factor: {
           name: "Red",
           min: 0,
           max: 255,
           curr: 125,
+          showCurr: true,
           divide: true
         },
         blue_factor: {
           name: "Blue",
           min: 0,
           max: 255,
-          curr: 125
+          curr: 125,
+          showCurr: true
         },
         green_factor: {
           name: "Green",
           min: 0,
           max: 255,
-          curr: 125
+          curr: 125,
+          showCurr: true
         }
       }
     };
@@ -147,9 +153,10 @@ export default {
     },
     saveCanvasAsPng() {
       this.saving = true;
-      mozaic.saveCanvasAsPng().then(() => {
-        this.saving = false;
-      });
+      setTimeout(() => {
+        mozaic.saveCanvasAsPng()
+        .then(() => { this.saving = false });
+      }, 500);
     },
     saveCanvasAsGif() {
       this.saving = true;

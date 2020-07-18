@@ -28,10 +28,8 @@ export function main(p5_) {
 
 export async function saveCanvasAsPng() {
   return new Promise((resolve) => {
-    setTimeout(function() {
-      p5.saveCanvas('mozaic', 'png');
-      resolve()
-    }, 500);
+    p5.saveCanvas('mozaic', 'png');
+    resolve();
   })
 }
 
@@ -111,7 +109,6 @@ class Circle {
   }
 
   updateSpeed(s) {
-    this.speed = 0;
     this.speed = s;
     if(parseInt(this.colorFactor) % 2 != 0){
       this.speed *= -1;

@@ -2,7 +2,7 @@
   <div class="home">
     <header class="mozaic-title">
       <h2 style="display: inline-block">Mozaic Generator‎‎‏‏‎ ‎</h2>
-      <span class="badge badge-pill badge-dark" style="vertical-align: top">1.0.0</span>
+      <span class="badge badge-pill badge-dark" style="vertical-align: top">{{version}}</span>
     </header>
     <Mozaic />
   </div>
@@ -15,6 +15,11 @@ export default {
   name: 'Home',
   components: {
     Mozaic
+  },
+  computed: {
+    version: () => {
+      return process.env.VUE_APP_VERSION;
+    }
   }
 }
 </script>
