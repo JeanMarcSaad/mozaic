@@ -59,9 +59,9 @@ export default {
       value_ranges: {
         circles_per_row: {
           name: "Size",
-          min: 50,
-          max: 100,
-          curr: 75,
+          min: 90,
+          max: 120,
+          curr: 100,
           showCurr: false
         },
         draw_percentage: {
@@ -110,7 +110,7 @@ export default {
   },
   watch: {
     "value_ranges.circles_per_row.curr": (val) => {
-      mozaic.setCircleRow(150 - val);
+      mozaic.setCircleRow(200 - val);
       mozaic.drawCircles(false);
     },
     "value_ranges.draw_percentage.curr": (val) => {

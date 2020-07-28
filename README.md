@@ -1,4 +1,6 @@
-# mozaic
+# Mozaic
+
+A pattern generator written in Vue.js & P5.js
 
 ## Project setup
 ```
@@ -19,6 +21,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -9,6 +9,10 @@ body {
     padding: 0.8em;
 }
 
+.author-title a {
+  color: white !important;
+}
+
 .mozaic-button {
   white-space:normal !important;
   background-color: rgba(150,34,66, 0.6);

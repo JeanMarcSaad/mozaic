@@ -12,7 +12,6 @@ let mozaicHeight = 720;
 export function main(p5_) {
   p5 = p5_
 
-
   p5.setup = () => {
     p5.createCanvas(mozaicWidth, mozaicHeight);
     p5.background(0);
@@ -23,6 +22,13 @@ export function main(p5_) {
   p5.draw = () => {
     radius = mozaicWidth / circleRow;
     updateCircles();
+  }
+}
+
+function updateCircles() {
+  for(var i=0; i < circleArray.length; i++) {
+    if(p5.random(0, 100) < 30)
+      circleArray[i].update();
   }
 }
 
@@ -75,13 +81,6 @@ export function drawCircles(randomize) {
         circleArray.push(new Circle(j, i, radius, speed));
       }
     }
-  }
-}
-
-function updateCircles() {
-  for(var i=0; i < circleArray.length; i++) {
-    if(p5.random(0, 100) < 30)
-      circleArray[i].update();
   }
 }
 
