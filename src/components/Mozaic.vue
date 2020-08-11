@@ -160,13 +160,13 @@ export default {
     },
     saveCanvasAsGif() {
       this.saving = true;
-      this.progress = 0;
       let canvas = document.getElementsByClassName("p5Canvas")[0];
       let updateProgress = (progress) => {
         this.progress = Math.floor(progress*100);
       };
       gifApi.renderGif({ canvas: canvas, progressMethod: updateProgress })
       .then(() => {
+        this.progress = 0;
         this.saving = false;
       });
     }
