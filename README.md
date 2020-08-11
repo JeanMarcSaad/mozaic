@@ -36,3 +36,9 @@ npm run build
 ```
 npm run lint
 ```
+
+## Contributing
+TODO
+
+## Licenses
+[MIT](LICENSE.txt)
