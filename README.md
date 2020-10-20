@@ -5,7 +5,7 @@ A [p5.js](https://p5js.org/) script turned interactive with the power of [Vue.js
 
 Mozaic design generator allows exporting designs as PNG stills and animated GIFs.
 
-Currently hosted on [heroku](https://mozaic-generator.herokuapp.com/) as a PWA.
+Currently hosted on [vercel](https://mozaic.vercel.app/) as a PWA.
 
 
 ## Example
